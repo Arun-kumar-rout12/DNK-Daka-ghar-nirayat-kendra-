@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Shipment Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .tracking-container {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .tracking-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tracking-container p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9; 
+            cursor: not-allowed;
+        }
+
+        .form-group input:disabled {
+            cursor: not-allowed;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>DNK</h1>
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="tracking-container">
+        <h2>Shipment Details</h2>
+
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="order_id">Customer name:</label>
+                <input type="text" id="order_id" name="order_id" value="{{ name }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="order_id">Order ID:</label>
+                <input type="text" id="order_id" name="order_id" value="{{ order_id }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ name }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="from_address">From Address:</label>
+                <textarea id="from_address" name="from_address" rows="3" disabled>{{ from_address }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="to_address">To Address:</label>
+                <textarea id="to_address" name="to_address" rows="3" disabled>{{ to_address }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <input type="text" id="status" name="status" value="{{ status }}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="current_location">Current Location:</label>
+                <input type="text" id="current_location" name="current_location" value="{{ current_location }}" disabled>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

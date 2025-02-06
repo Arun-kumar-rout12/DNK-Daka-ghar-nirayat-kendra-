@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .receipt-container {
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .receipt-header {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .receipt-details {
+            margin: 20px 0;
+            font-size: 1em;
+            color: #555;
+            text-align: left;
+        }
+        .receipt-details p {
+            margin: 5px 0;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .download-link:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            font-size: 0.9em;
+            color: #b33a3a;
+            background-color: #f9d6d5;
+            padding: 10px;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="receipt-container">
+    <div class="alert">
+        <strong>Important:</strong> Please download this receipt as it will be generated only once.
+    </div>
+
+    <h1 class="receipt-header">Shipment Receipt</h1>
+
+    <div class="receipt-details">
+        <p><strong>Receipt Number:</strong> {{ receipt.receipt_number }}</p>
+        <p><strong>Order ID:</strong> {{ receipt.shipment.order_id }}</p>
+        <p><strong>Customer Name:</strong> {{ receipt.shipment.name }}</p>
+        <p><strong>Contact Number:</strong> {{ receipt.shipment.contact_number }}</p>
+        <p><strong>From Address:</strong> {{ receipt.shipment.from_address }}</p>
+        <p><strong>To Address:</strong> {{ receipt.shipment.to_address }}</p>
+        <p><strong>Current Address:</strong> {{ receipt.shipment.current_address }}</p>
+        <p><strong>Weight:</strong> {{ receipt.shipment.weight }} kg</p>
+        <p><strong>Pickup Date:</strong> {{ receipt.shipment.pickup_date }}</p>
+        <p><strong>Payment Method:</strong> {{ receipt.shipment.payment_method }}</p>
+        <p><strong>Amount Paid:</strong> {{ receipt.amount }}</p>
+        <p><strong>Status:</strong> {{ receipt.shipment.status }}</p>
+    </div>
+
+    <a href="{{ receipt.pdf_file.url }}" class="download-link" target="_blank">Download PDF</a>
+</div>
+
+</body>
+</html>
