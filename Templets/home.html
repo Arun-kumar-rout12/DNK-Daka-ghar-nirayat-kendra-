@@ -1,0 +1,440 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | DNK</title>
+    <link rel="icon" href="{% static 'img/dnk2.png'%}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<style>
+    .heading {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #333;
+        text-shadow: 1px 1px 2px #aaa;
+    }
+
+    .country-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .country-select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-right: 10px;
+    }
+
+    .submit-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    .product-table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .product-table th,
+    .product-table td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .product-table th {
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .product-table td {
+        background-color: #f2f2f2;
+    }
+
+    .product-table tr:hover td {
+        background-color: #d4e9d4;
+        transition: background-color 0.3s;
+    }
+
+    .product-table tbody tr {
+        border-bottom: 2px solid #ddd;
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+
+        .product-table {
+            width: 100%;
+        }
+
+        .heading {
+            font-size: 1.5rem;
+        }
+
+        .country-form {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .country-select,
+        .submit-btn {
+            width: 100%;
+        }
+    }
+
+    table {
+        background-color: rgb(255, 255, 255);
+    }
+
+    th {
+        color: black;
+    }
+
+    .left2 {
+        background-color: aliceblue;
+        border: 2px solid black;
+    }
+
+    .counter {
+        background-color: whitesmoke;
+    }
+
+    .faded-line {
+        height: 25 px;
+        width: 1500px;
+        max-width: 100%;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+        margin: 40px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #5c0606;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 0 10px;
+        border-radius: 10px;
+    }
+</style>
+
+<body>
+    <header style="position: sticky; top: 0;">
+        <div class="container">
+            <h1 class="po">
+                <img src="{% static 'img/dnk2.png' %}" alt="Dak Ghar Niryat Kendra">
+                ᴅᴀᴋᴀ ɢʜᴀʀ ɴɪʀᴀʏᴀᴛ ᴋᴇɴᴅʀᴀ
+            </h1>
+            <div id="countdown" style="font-size: 1.5rem; color: rgb(5, 251, 66);">01:00:00</div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#service">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="home" id="home">
+        <div class="right">
+            <h1>Hii {{ user.username }}</h1>
+            <h2>𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐃𝐚𝐤 𝐆𝐡𝐚𝐫 𝐍𝐢𝐫𝐲𝐚𝐭 𝐊𝐞𝐧𝐝𝐫𝐚</h2>
+            <p>ʟᴇᴛ'ꜱ ᴅʀɪᴠᴇ ꜱᴜᴄᴄᴇꜱꜱ ᴛʜʀᴏᴜɢʜ ᴜɴᴍᴀᴛᴄʜᴇᴅ ꜱᴇʀᴠɪᴄᴇ Qᴜᴀʟɪᴛʏ, ᴅᴇᴅɪᴄᴀᴛɪᴏɴ, ᴀɴᴅ ɪɴɴᴏᴠᴀᴛɪᴏɴ ꜱᴏʟᴜᴛɪᴏɴꜱ ᴛᴀɪʟᴏʀᴇᴅ ᴛᴏ
+                ʏᴏᴜʀ ɴᴇᴇᴅꜱ.</p>
+            <a href="{% url 'add_person' %}">
+                <button class="neumorphic-button">
+                    <span class="button-text">ʙᴏᴏᴋ ʏᴏᴜʀ ᴄᴏɴꜱɪɢɴᴍᴇɴᴛ</span>
+                </button>
+
+            </a>
+        </div>
+        <div class="left">
+            <img src="{% static 'img/gift-box.png' %}" alt="Dak Ghar Niryat Kendra" style="filter: drop-shadow(0px 0px 50px rgba(225, 203, 10, 0.5));
+">
+        </div>
+
+    </section>
+
+    <div class="view" style="display: flex;flex-direction:column; background-color:azure;">
+        <div class="faded-line">
+            <div class="details-text">shipment expences</div>
+        </div>
+        <h2 class="heading">Select Your Country</h2>
+        <form class="country-form">
+            <label for="country" style="color: #333;font-weight:bolder;font-size:1rem;margin-top:5px">Country:</label>
+            <select id="country" name="country" class="country-select">
+                <option value="AF">Afghanistan</option>
+                <option value="AL">Albania</option>
+                <option value="DZ">Algeria</option>
+                <option value="AD">Andorra</option>
+                <option value="AO">Angola</option>
+                <option value="AR">Argentina</option>
+                <option value="AM">Armenia</option>
+                <option value="AU">Australia</option>
+                <option value="AT">Austria</option>
+                <option value="AZ">Azerbaijan</option>
+                <option value="BD">Bangladesh</option>
+                <option value="BE">Belgium</option>
+                <option value="BR">Brazil</option>
+                <option value="CA">Canada</option>
+                <option value="CN">China</option>
+                <option value="EG">Egypt</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+                <option value="IN">India</option>
+                <option value="JP">Japan</option>
+                <option value="RU">Russia</option>
+                <option value="SA">Saudi Arabia</option>
+                <option value="ZA">South Africa</option>
+                <option value="GB">United Kingdom</option>
+                <option value="US">United States</option>
+            </select>
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+
+        <h2 class="heading">Shipments Information</h2>
+        <table class="product-table" style="color: #333; font-size:1rem;font-weight:bolder">
+            <thead>
+                <tr>
+                    <th>Product Type</th>
+                    <th>Weight Max [Grams]</th>
+                    <th>Insured [INR]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>International Air Parcel</td>
+                    <td>{{ random_box_values.box1 }}</td>
+                    <td>{{ random_box_values.box2 }}</td>
+                </tr>
+                <tr>
+                    <td>International Regd. Letter</td>
+                    <td>{{ random_box_values.box3 }}</td>
+                    <td>{{ random_box_values.box4 }}</td>
+                </tr>
+                <tr>
+                    <td>Fast Delivery</td>
+                    <td>{{ random_box_values.box5 }}</td>
+                    <td>{{ random_box_values.box6 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="faded-line">
+            <div class="details-text">shipment updates</div>
+        </div>
+        <div class="can" style="margin-bottom:20px;">
+            <div class="left2">
+                <div>
+                    <h2>Total Consignments :</h2>
+                    <p id="leftShipmentCount">{{ total_shipments }}</p>
+                </div>
+            </div>
+            <div class="right2">
+                <div class="counter">
+                    <p id="poInductionPendingCount">{{ po_induction_pending_count }}</p>
+                    <h2>pending:</h2>
+                </div>
+                <div class="counter">
+                    <p id="inTransitCount">{{ in_transit_count }}</p>
+                    <h2>In transit:</h2>
+                </div>
+                <div class="counter">
+                    <p id="underProcessingCount">{{ under_processing_count }}</p>
+                    <h2>Under processing :</h2>
+                </div>
+                <div class="counter">
+                    <p id="customsClearedCount">{{ customs_cleared_count }}</p>
+                    <h2>Customs cleared:</h2>
+                </div>
+                <div class="counter">
+                    <p id="customsDetainedCount">{{ customs_detained_count }}</p>
+                    <h2>Customs detained:</h2>
+                </div>
+                <div class="counter">
+                    <p id="despatchedOutOfIndiaCount">{{ despatched_out_of_india_count }}</p>
+                    <h2>Despatched out of India:</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="square">
+        <div class="head">
+            <div style="display: flex;padding:5px 5px 5px 5px;">
+                <input type="text" class="search-input" placeholder="Search..."
+                    style="padding: 8px; border: 1px solid #ccc;">
+                <button type="button" class="search-button"
+                    style="padding: 8px 12px; background-color: #007BFF; color: white; border: none; cursor: pointer;">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(0, 0, 0, 0.2);">
+                    <th>Order ID</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>From Address</th>
+                    <th>To Address</th>
+                    <th>Current Address</th>
+                    <th>Weight</th>
+                    <th>Pickup Date</th>
+                    <th>Payment Method</th>
+                    <th>Payment Details</th>
+                    <th>Status</th>
+                    <th>payment status</th>
+                    <th>Receipt</th>
+                    <th>Track Order</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if persons %}
+                {% for person in persons %}
+                <tr style="color: black;">
+                    <td style="font-size:1rem;text-transform:uppercase;">{{ person.order_id }}</td>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.contact_number }}</td>
+                    <td>{{ person.from_address }}</td>
+                    <td>{{ person.to_address }}</td>
+                    <td>{{ person.current_address }}</td>
+                    <td>{{ person.weight }} kg</td>
+                    <td>{{ person.pickup_date }}</td>
+                    <td>{{ person.payment_method }}</td>
+                    <td>{{ person.payment_details }}</td>
+                    <td>{{ person.status }}</td>
+                    <td>{{ person.payment_status }}</td>
+                    <td>
+                        {% if person.receipt and person.receipt.pdf_file %}
+                        <a href="{{ person.receipt.pdf_file.url }}" download>Download Receipt</a>
+                        {% else %}
+                        <span>Receipt Not Available</span>
+                        {% endif %}
+                    </td>
+                    
+                    <td>
+                        <a href="{% url 'ViewShipmentDetails' order_id=person.order_id %}" class="home-link">Track Order</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="13">No persons found for {{ user.username }}.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section about-us" id="about">
+                <h3>About Us</h3>
+                <p>Dak Ghar Niryat Kendra is a leading provider of export and import solutions, offering a range of
+                    services to help businesses navigate the complexities of international trade.</p>
+            </div>
+            <div class="footer-section contact-us" id="contact">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:serviceDnk@gmail.com">serviceDnk@gmail.com</a></p>
+                <p>Phone: <a href="tel:+91-9692098883">+91-9692098883</a></p>
+                <p>Address: Lane 5 Adarsh Nagar, Gunpur, Odisha, India</p>
+                <p>Business Hours: Mon-Fri, 9am - 5pm</p>
+            </div>
+            <div class="footer-section services" id="service">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#">Customs Clearance</a></li>
+                    <li><a href="#">Freight Forwarding</a></li>
+                    <li><a href="#">Logistics Management</a></li>
+                    <li><a href="#">Trade Consultancy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social-media">
+                <h3>Follow Us</h3>
+                <a href="https://facebook.com/dakgharniryatkendra" target="_blank">Facebook</a>
+                <a href="https://twitter.com/dakgharniryatkendra" target="_blank">Twitter</a>
+                <a href="https://linkedin.com/company/dakgharniryatkendra" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+        <p>&copy; 2024 Dak Ghar Niryat Kendra. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function formatTime(seconds) {
+                const hrs = Math.floor(seconds / 3600);
+                const mins = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 3600;
+            const countdownElement = document.getElementById('countdown');
+
+
+            if (!localStorage.getItem('alertShown')) {
+                alert("Attention: You get only 1 hour.");
+                localStorage.setItem('alertShown', true);
+            }
+
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = formatTime(timeLeft);
+                localStorage.setItem('timeLeft', timeLeft);  
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    localStorage.removeItem('timeLeft'); 
+                    localStorage.removeItem('alertShown'); 
+                    alert("Session timed out. You have been logged out due to inactivity.");
+                    window.location.href = "{% url 'logout' %}";
+                }
+            }, 1000);
+
+            function resetTimer() {
+                timeLeft = 3600;  
+                localStorage.setItem('timeLeft', timeLeft); 
+            }
+
+            document.addEventListener('mousemove', resetTimer);
+            document.addEventListener('keypress', resetTimer);
+        });
+    </script>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

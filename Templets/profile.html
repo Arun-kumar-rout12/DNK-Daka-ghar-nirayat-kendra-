@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | DNK</title>
+    <link rel="icon" href="{% static 'img/dnk2.png' %}" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #74b9ff, #a29bfe);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 800px;
+            padding: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            color: #0984e3;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px solid #0984e3;
+            border-radius: 12px;
+            padding: 15px;
+            background: linear-gradient(to right, #dfe6e9, #f1f2f6);
+        }
+
+        .profile-image {
+            flex: 0 0 120px;
+            margin-right: 20px;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #74b9ff;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info p {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #2d3436;
+        }
+
+        .profile-info button {
+            background-color: #0984e3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-info button:hover {
+            background-color: #74b9ff;
+        }
+
+        .update-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #0984e3;
+            border-radius: 12px;
+            background-color: #f1f2f6;
+        }
+
+        .update-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .update-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .update-form button {
+            padding: 10px 20px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .update-form button:hover {
+            background-color: #74b9ff;
+        }
+
+        .services-section {
+            background: linear-gradient(to bottom, #a29bfe, #74b9ff);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .services-section h2 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .services-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .services-list li {
+            padding: 12px;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .services-list li:hover {
+            background-color: #dfe6e9;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            color: #0984e3;
+        }
+
+        .contact-info p {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: #636e72;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0984e3;
+            color: white;
+            border-radius: 0 0 15px 15px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+        function toggleUpdateForm() {
+            const form = document.getElementById('updateProfileForm');
+            form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Client Profile</h1>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="{% static 'img/my_avatar.png' %}" alt="Client Image">
+            </div>
+            <div class="profile-info">
+                <p><strong>Name:</strong> {{ user.username }}</p>
+                <p><strong>Role:</strong> Post Office Client</p>
+                <p><strong>Description:</strong> A dedicated client focused on utilizing postal solutions effectively for personal and business needs.</p>
+                <button onclick="toggleUpdateForm()">Update Profile</button>
+            </div>
+        </div>
+
+        <div class="update-form" id="updateProfileForm">
+            <form method="POST" action="{% url 'update_profile' %}">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ user.username }}" required>
+
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+
+                <button type="submit">Update</button>
+            </form>
+        </div>
+
+        <div class="services-section">
+            <h2>Services Offered</h2>
+            <ul class="services-list">
+                <li>Domestic Mail Delivery</li>
+                <li>International Shipping</li>
+                <li>Registered Mail Services</li>
+                <li>Parcel Tracking</li>
+                <li>Money Transfer Services</li>
+                <li>Express Delivery Options</li>
+            </ul>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <p>Email: serviceDnk@gmail.com</p>
+            <p>Phone: +919692098883</p>
+            <p>Address: Lane 5 Adarsh Nagar, Gunpur, Odisha, India</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Post Office Services. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
