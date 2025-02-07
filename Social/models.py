@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from django.utils import timezone
 import uuid
 from io import BytesIO
-from reportlab.pdfgen import canvas
 from django.core.files.base import ContentFile
 
 class UserProfile(models.Model):
@@ -98,23 +97,23 @@ class Receipt(models.Model):
             self.receipt_number = f"REC-{self.shipment.order_id}-{timezone.now().strftime('%Y%m%d%H%M%S')}"
         super().save(*args, **kwargs)
 
-    def generate_pdf(self):
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer)
+    # def generate_pdf(self):
+    #     buffer = BytesIO()
+    #     p = canvas.Canvas(buffer)
 
-        p.drawString(100, 750, f"Receipt Number: {self.receipt_number}")
-        p.drawString(100, 730, f"Order ID: {self.shipment.order_id}")
-        p.drawString(100, 710, f"Customer Name: {self.shipment.name}")
-        p.drawString(100, 690, f"Amount: {self.amount}")
-        p.drawString(100, 670, f"Payment Status: {self.payment_status}")
-        p.drawString(100, 650, f"Issued Date: {self.date_issued.strftime('%Y-%m-%d')}")
+    #     p.drawString(100, 750, f"Receipt Number: {self.receipt_number}")
+    #     p.drawString(100, 730, f"Order ID: {self.shipment.order_id}")
+    #     p.drawString(100, 710, f"Customer Name: {self.shipment.name}")
+    #     p.drawString(100, 690, f"Amount: {self.amount}")
+    #     p.drawString(100, 670, f"Payment Status: {self.payment_status}")
+    #     p.drawString(100, 650, f"Issued Date: {self.date_issued.strftime('%Y-%m-%d')}")
 
-        p.showPage()
-        p.save()
+    #     p.showPage()
+    #     p.save()
 
-        buffer.seek(0)
-        self.pdf_file.save(f"receipt_{self.receipt_number}.pdf", ContentFile(buffer.read()), save=False)
-        buffer.close()
+    #     buffer.seek(0)
+    #     self.pdf_file.save(f"receipt_{self.receipt_number}.pdf", ContentFile(buffer.read()), save=False)
+    #     buffer.close()
 
 @receiver(post_save, sender=person)
 def create_or_update_receipt(sender, instance, created, **kwargs):
