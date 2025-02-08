@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
+from django.core.management import execute_from_command_line
 import sys
 
 
@@ -19,4 +20,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "My_face_clone.settings")
+    port = os.getenv("PORT", "8000")
+    execute_from_command_line(["manage.py", "runserver", f"0.0.0.0:{port}"])
+
