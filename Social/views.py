@@ -14,7 +14,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import person, Receipt
 from django.core.files.base import ContentFile
-from reportlab.pdfgen import canvas
 from io import BytesIO
 from django.views.decorators.csrf import csrf_exempt
 
