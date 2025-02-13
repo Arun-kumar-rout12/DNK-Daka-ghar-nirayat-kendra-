@@ -393,44 +393,49 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
             function formatTime(seconds) {
                 const hrs = Math.floor(seconds / 3600);
                 const mins = Math.floor((seconds % 3600) / 60);
                 const secs = seconds % 60;
                 return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             }
-
-            let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 3600;
+        
+            let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 3600;
             const countdownElement = document.getElementById('countdown');
-
-
+        
             if (!localStorage.getItem('alertShown')) {
                 alert("Attention: You get only 1 hour.");
-                localStorage.setItem('alertShown', true);
+                localStorage.setItem('alertShown', 'true');
             }
-
-            const timerInterval = setInterval(() => {
-                timeLeft--;
+        
+            function updateTimer() {
                 countdownElement.textContent = formatTime(timeLeft);
-                localStorage.setItem('timeLeft', timeLeft);  
-                if (timeLeft <= 0) {
+                localStorage.setItem('timeLeft', timeLeft);
+            }
+        
+            function resetTimer() {
+                timeLeft = 3600;
+                updateTimer();
+            }
+        
+            let timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimer();
+                } else {
                     clearInterval(timerInterval);
-                    localStorage.removeItem('timeLeft'); 
-                    localStorage.removeItem('alertShown'); 
+                    localStorage.removeItem('timeLeft');
+                    localStorage.removeItem('alertShown');
                     alert("Session timed out. You have been logged out due to inactivity.");
                     window.location.href = "{% url 'logout' %}";
                 }
             }, 1000);
-
-            function resetTimer() {
-                timeLeft = 3600;  
-                localStorage.setItem('timeLeft', timeLeft); 
-            }
-
+        
             document.addEventListener('mousemove', resetTimer);
             document.addEventListener('keypress', resetTimer);
+            updateTimer();
         });
+        
     </script>
 
 
