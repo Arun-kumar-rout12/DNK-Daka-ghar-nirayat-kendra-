@@ -4,53 +4,296 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | DNK</title>
     <link rel="icon" href="{% static 'img/dnk2.png'%}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <style>
+    :root {
+        --primary-color: #1e666b;
+        --secondary-color: #f5a623;
+        --accent-color: #2c8c93;
+        --light-color: #f8f9fa;
+        --dark-color: #343a40;
+        --success-color: #28a745;
+        --info-color: #17a2b8;
+        --warning-color: #ffc107;
+        --danger-color: #dc3545;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+    }
+
+    header {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .container {
+        max-width: 1400px;
+    }
+
+    h1.po {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    nav ul li a {
+        padding: 12px 15px;
+        font-weight: 500;
+        border-radius: 4px;
+        margin: 0 5px;
+    }
+
+    nav ul li a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    .home {
+        background: linear-gradient(to right, #ffffff 50%, #f8f9fa 50%);
+        padding: 40px 0;
+    }
+
+    .right h1 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+    }
+
+    .right h2 {
+        font-size: 1.8rem;
+        color: var(--dark-color);
+        margin-bottom: 20px;
+    }
+
+    .right p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 600px;
+    }
+
+    .left1 img {
+        max-width: 100%;
+        height: auto;
+        filter: drop-shadow(0px 10px 30px rgba(30, 102, 107, 0.3));
+        transition: transform 0.3s ease;
+    }
+
+    .left1 img:hover {
+        transform: scale(1.03);
+    }
+
+    .square {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        padding: 25px;
+        margin: 40px auto;
+        max-width: 1400px;
+    }
+
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .search-input {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        width: 300px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(30, 102, 107, 0.2);
+        outline: none;
+    }
+
+    .search-button {
+        padding: 12px 20px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .search-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(30, 102, 107, 0.3);
+    }
+
     table {
-        background-color: rgb(255, 255, 255);
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
     }
 
     th {
-        color: black;
-    }
-
-    .left2 {
-        background-color: aliceblue;
-        border: 2px solid black;
-    }
-
-    .counter {
-        background-color: whitesmoke;
-    }
-    .left1 img {
-        max-width:1000px;
-        width: 500px;
-        height:500px;
-        border-radius: 10px;
-        
-    }
-    nav ul li a {
-        text-decoration: none;
-        padding: 10px;
-        color: rgb(249, 249, 249);
-        transition: color 0.3s ease, background-color 0.3s ease;
-    }
-    
-    nav ul li a:hover {
+        background-color: var(--primary-color);
         color: white;
-        background-color: #1e666b;
-        border-radius: 1px; 
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
     }
-    
-    
+
+    tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .home-link {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .home-link:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(30, 102, 107, 0.3);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-in-transit {
+        background-color: #cce5ff;
+        color: #004085;
+    }
+
+    .status-delivered {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .footer {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        padding: 40px 0 20px;
+    }
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .footer-section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--secondary-color);
+    }
+
+    .footer-section a {
+        color: white;
+        display: block;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .footer-section a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .footer p {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .home {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .right, .left1 {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .left1 img {
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .head {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-button {
+            margin-top: 10px;
+            width: 100%;
+        }
+    }
 </style>
 
 <body>
-    <header style="position: sticky; top: 0;">
+    <header>
         <div class="container">
             <h1 class="po">
                 <img src="{% static 'img/dnk2.png' %}" alt="Dak Ghar Niryat Kendra">
@@ -59,70 +302,129 @@
             <nav>
                 <ul>
                     <li></li>
-                    <li><a href="{% url 'Ahome' %}">Home</a></li>
-                    <li><a href="{% url 'Aprofile' %}">Profile</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#service">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'Ahome' %}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{% url 'Aprofile' %}"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                    <li><a href="#service"><i class="fas fa-cogs"></i> Services</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     
     <section class="home" id="home">
-        <div class="right" style="margin-right:50px;">
+        <div class="right">
             <h1>Hello Agent {{ AgentProfile.name }}</h1>
             <h2>𝐖𝐞𝐥𝐜𝐨𝐦𝐞 𝐭𝐨 𝐘𝐨𝐮𝐫 𝐃𝐚𝐤 𝐆𝐡𝐚𝐫 𝐍𝐢𝐫𝐲𝐚𝐭 𝐊𝐞𝐧𝐝𝐫𝐚 𝐃𝐚𝐬𝐡𝐛𝐨𝐚𝐫𝐝</h2>
-            <p>“Efficient logistics, empowered agents, and seamless solutions for a global world.”</p>
-            <a href="{% url 'add_person' %}">
-            </a>
+            <p>"Efficient logistics, empowered agents, and seamless solutions for a global world."</p>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Total Shipments</h3>
+                    <p>{{ persons|length }}</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-truck"></i>
+                    <h3>In Transit</h3>
+                    <p>{{ persons|length }}</p> <!-- Update with actual count -->
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Delivered</h3>
+                    <p>0</p> <!-- Update with actual count -->
+                </div>
+            </div>
         </div>
         <div class="left1">
-            <img src="{% static 'img/parcel.png' %}" alt="Dak Ghar Niryat Kendra" style="filter: drop-shadow(0px 0px 50px rgba(225, 203, 10, 0.5));">
+            <img src="{% static 'img/parcel.png' %}" alt="Dak Ghar Niryat Kendra">
         </div>
     </section>
     
     <div class="square">
         <div class="head">
-            <div style="display: flex; align-items: center;">
-                <input type="text" class="search-input" placeholder="Search..." style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 10px;">
-                <button type="button" class="search-button" style="padding: 8px 12px; background-color: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Search
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search by order ID, name...">
+                <button type="button" class="search-button">
+                    <i class="fas fa-search"></i> Search
                 </button>
             </div>
+            <a href="{% url 'add_person' %}" class="add-new-btn">
+                <i class="fas fa-plus"></i> Add New Shipment
+            </a>
         </div>
 
-        <table>
-            <thead>
-                <tr style="box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), -2px -2px 5px rgba(0, 0, 0, 0.2);">
-                    <th>Order ID</th>
-                    <th>Username</th>
-                    <th>Pickup Address</th>
-                    <th>Delivery Address</th>
-                    <th>Status</th>
-                    <th>Update tracking</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if persons %}
-                {% for person in persons %}
-                <tr style="color: black;">
-                    <td style="font-size:1rem;text-transform:uppercase;">{{ person.order_id }}</td>
-                    <td>{{ person.name }}</td>
-                    <td>{{ person.from_address }}</td>
-                    <td>{{ person.to_address }}</td>
-                    <td>{{ person.status }}</td>
-                    <td><a href="{% url 'Track' order_id=person.order_id %}" class="home-link">Track Order</a></td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="5">No shipments found for {{ user.username }}.</td>
-                </tr>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Pickup Address</th>
+                        <th>Delivery Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if persons %}
+                    {% for person in persons %}
+                    <tr>
+                        <td style="font-weight: 600;">#{{ person.order_id }}</td>
+                        <td>
+                            <div class="customer-info">
+                                <span class="customer-name">{{ person.name }}</span>
+                                <span class="customer-phone"><i class="fas fa-phone"></i> {{ person.phone }}</span>
+                            </div>
+                        </td>
+                        <td>{{ person.from_address }}</td>
+                        <td>{{ person.to_address }}</td>
+                        <td>
+                            <span class="status-badge status-{{ person.status|lower|cut:' ' }}">
+                                <i class="fas fa-circle"></i> {{ person.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'Track' order_id=person.order_id %}" class="home-link">
+                                <i class="fas fa-eye"></i> Track
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 30px;">
+                            <i class="fas fa-box-open" style="font-size: 2rem; color: #ccc; margin-bottom: 15px;"></i>
+                            <h3>No shipments found</h3>
+                            <p>You haven't created any shipments yet. Click "Add New Shipment" to get started.</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        
+        {% if persons.has_other_pages %}
+        <div class="pagination">
+            {% if persons.has_previous %}
+                <a href="?page=1" class="page-link"><i class="fas fa-angle-double-left"></i></a>
+                <a href="?page={{ persons.previous_page_number }}" class="page-link"><i class="fas fa-angle-left"></i></a>
+            {% endif %}
+            
+            {% for num in persons.paginator.page_range %}
+                {% if persons.number == num %}
+                    <span class="current-page">{{ num }}</span>
+                {% elif num > persons.number|add:'-3' and num < persons.number|add:'3' %}
+                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
                 {% endif %}
-            </tbody>
-        </table>
+            {% endfor %}
+            
+            {% if persons.has_next %}
+                <a href="?page={{ persons.next_page_number }}" class="page-link"><i class="fas fa-angle-right"></i></a>
+                <a href="?page={{ persons.paginator.num_pages }}" class="page-link"><i class="fas fa-angle-double-right"></i></a>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
     
     <footer class="footer">
@@ -130,34 +432,71 @@
             <div class="footer-section about-us" id="about">
                 <h3>About Us</h3>
                 <p>Dak Ghar Niryat Kendra is a leading provider of export and import solutions, offering a range of services to help businesses navigate the complexities of international trade.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section quick-links">
+                <h3>Quick Links</h3>
+                <a href="{% url 'Ahome' %}">Home</a>
+                <a href="{% url 'Aprofile' %}">Profile</a>
+                <a href="#service">Services</a>
+                <a href="#contact">Contact</a>
+                <a href="{% url 'logout' %}">Logout</a>
             </div>
             <div class="footer-section contact-us" id="contact">
                 <h3>Contact Us</h3>
-                <p>Email: <a href="mailto:serviceDnk@gmail.com">serviceDnk@gmail.com</a></p>
-                <p>Phone: <a href="tel:+91-9692098883">+91-9692098883</a></p>
-                <p>Address: Lane 5 Adarsh Nagar, Gunpur, Odisha, India</p>
-                <p>Business Hours: Mon-Fri, 9am - 5pm</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:serviceDnk@gmail.com">serviceDnk@gmail.com</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+91-9692098883">+91-9692098883</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> Lane 5 Adarsh Nagar, Gunpur, Odisha, India</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri, 9am - 5pm</p>
             </div>
             <div class="footer-section services" id="service">
                 <h3>Our Services</h3>
-                <ul>
-                    <li><a href="#">Customs Clearance</a></li>
-                    <li><a href="#">Freight Forwarding</a></li>
-                    <li><a href="#">Logistics Management</a></li>
-                    <li><a href="#">Trade Consultancy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section social-media">
-                <h3>Follow Us</h3>
-                <a href="https://facebook.com/dakgharniryatkendra" target="_blank">Facebook</a>
-                <a href="https://twitter.com/dakgharniryatkendra" target="_blank">Twitter</a>
-                <a href="https://linkedin.com/company/dakgharniryatkendra" target="_blank">LinkedIn</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Customs Clearance</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Freight Forwarding</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Logistics Management</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Trade Consultancy</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Packaging Solutions</a>
+                <a href="#"><i class="fas fa-check-circle"></i> Documentation Support</a>
             </div>
         </div>
         <p>&copy; 2024 Dak Ghar Niryat Kendra. All rights reserved.</p>
     </footer>
 
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        // Simple search functionality
+        document.querySelector('.search-button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // Allow search on Enter key
+        document.querySelector('.search-input').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-button').click();
+            }
+        });
+        
+        // Add animation to stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
 </body>
 
 </html>
