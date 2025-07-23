@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 import random
 import uuid
+from reportlab.pdfgen import canvas
 import string
 from django.db.models.signals import post_save
 from django.dispatch import receiver
