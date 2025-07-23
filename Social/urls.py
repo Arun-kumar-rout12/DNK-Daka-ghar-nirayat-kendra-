@@ -19,6 +19,6 @@ urlpatterns = [
     path('add_person/', add_person, name='add_person'),
     path('register/', register, name='register'),
     path('Track/<str:order_id>/',Track, name='Track'),
-    path('receipt/<int:receipt_id>/', views.view_receipt, name='view_receipt'),
+    path('receipt/<int:receipt_id>/',view_receipt, name='view_receipt'),
     path('view-shipment/<str:order_id>/',ViewShipmentDetails, name='ViewShipmentDetails'),
 ]
