@@ -9,6 +9,7 @@ from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 import random
 import uuid
+from datetime import datetime, date
 from reportlab.pdfgen import canvas
 import string
 from django.db.models.signals import post_save
@@ -348,10 +349,10 @@ def add_person(request):
 
 def generate_receipt(shipment):
     receipt, created = Receipt.objects.get_or_create(shipment=shipment)
-    
+
     buffer = BytesIO()
     p = canvas.Canvas(buffer)
-    
+
     p.drawString(100, 800, f"Receipt Number: {receipt.receipt_number}")
     p.drawString(100, 780, f"Order ID: {shipment.order_id}")
     p.drawString(100, 760, f"Customer Name: {shipment.name}")
@@ -360,15 +361,27 @@ def generate_receipt(shipment):
     p.drawString(100, 700, f"To Address: {shipment.to_address}")
     p.drawString(100, 680, f"Current Address: {shipment.current_address}")
     p.drawString(100, 660, f"Weight: {shipment.weight} kg")
-    p.drawString(100, 640, f"Pickup Date: {shipment.pickup_date.strftime('%Y-%m-%d')}")
+
+    # ✅ Safely format pickup_date
+    pickup_date_raw = shipment.pickup_date
+    if isinstance(pickup_date_raw, str):
+        try:
+            pickup_date_obj = datetime.strptime(pickup_date_raw, "%Y-%m-%d")
+        except ValueError:
+            pickup_date_obj = datetime.today()  # fallback if format is wrong
+    else:
+        pickup_date_obj = pickup_date_raw  # already date/datetime
+
+    p.drawString(100, 640, f"Pickup Date: {pickup_date_obj.strftime('%Y-%m-%d')}")
+
     p.drawString(100, 620, f"Payment Method: {shipment.payment_method}")
     p.drawString(100, 600, f"Amount Paid: {receipt.amount}")
     p.drawString(100, 580, f"Status: {shipment.status}")
-    
+
     p.showPage()
     p.save()
     buffer.seek(0)
-    
+
     pdf_name = f"Receipt_{receipt.receipt_number}.pdf"
     receipt.pdf_file.save(pdf_name, ContentFile(buffer.read()), save=True)
     buffer.close()
